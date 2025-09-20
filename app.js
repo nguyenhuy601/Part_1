@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
+const { swaggerUi, swaggerSpec } = require("./config/swagger");
 
 dotenv.config();
 const connectDB = require("./config/db"); // ✅ import db.js
@@ -25,6 +26,7 @@ const productRoutes = require("./routes/productRoutes");
 app.get("/", (req, res) => {
   res.send("Hello! Server is running 🚀");
 });
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/suppliers", supplierRoutes);
 app.use("/products", productRoutes);
 
